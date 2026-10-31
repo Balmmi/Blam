@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8f3ef">
+<title></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#f8f5ef;--paper:#fffdfa;--pink:#f3dfe5;--pink2:#f9edf0;--sage:#dce7d7;
+ --sage2:#edf2e9;--green:#66836b;--ink:#75645f;--muted:#a99b95;--line:#eee5df;
+ --shadow:0 8px 28px rgba(111,91,81,.07);--radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Kanit',sans-serif;font-weight:300}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.topbar{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(255,253,250,.94);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+.top-actions{display:flex;gap:9px}
+.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:13px;background:#fff;color:#967f78}
+.wrap{width:min(1120px,94%);margin:24px auto 100px}
+.profile-card{background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow);text-align:center;position:relative;padding-bottom:24px}
+.cover{height:190px;background:linear-gradient(120deg,#dce7d7,#f5e5e7 55%,#f8eedc);position:relative;overflow:hidden}
+.cover:before{content:"✿  ♡  ✧  ❀  ♡  ✿";position:absolute;inset:25px 0 auto;font-size:36px;letter-spacing:15px;color:#fff9;text-align:center}
+.cover:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #fff8;border-radius:50%;right:-40px;top:-150px;box-shadow:0 0 0 18px #fff2,0 0 0 38px #fff2}
+.avatar{width:112px;height:112px;border-radius:50%;background:linear-gradient(135deg,#f2e4e2,#dfe8d9);border:6px solid var(--paper);display:grid;place-items:center;font-size:49px;margin:-58px auto 8px;position:relative;z-index:2;box-shadow:0 4px 15px #0000000b;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.profile-card h1{font-family:'Playfair Display',serif;font-size:30px;margin:5px 0;color:#8a7370}
+.bio{font-size:13px;color:#a2948d;margin:0 auto 17px;max-width:500px;padding:0 16px}
+.stats{display:flex;justify-content:center;gap:55px;margin:15px 0 23px}
+.stat strong{display:block;font-size:22px;font-weight:600;color:#85736c}
+.stat span{font-size:11px;color:#b2a49e}
+.music{width:min(440px,88%);margin:0 auto 17px;padding:13px 16px;border:1px solid #e8e1dc;border-radius:19px;background:linear-gradient(120deg,#fff,#f8f4f0);display:flex;align-items:center;gap:13px;text-align:left}
+.music-disc{width:42px;height:42px;border-radius:50%;background:var(--sage);display:grid;place-items:center;font-size:18px}
+.music-info{flex:1}.music-info b{display:block;font-size:13px;font-weight:500}.music-info span{font-size:11px;color:#aa9d96}
+.play{border:0;border-radius:50%;width:34px;height:34px;background:var(--sage);color:var(--green)}
+.contact-mini{width:min(440px,88%);margin:auto;border:1px solid var(--line);border-radius:20px;padding:15px;background:#fffdfa}
+.mini-title{font-size:12px;letter-spacing:2px;margin-bottom:9px}
+.contact-mini a{display:block;padding:10px;margin-top:7px;border:1px solid #eee7e2;border-radius:13px;font-size:12px;background:#fff}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:30px 2px 14px}
+.section-head h2{font-size:19px;font-weight:500;margin:0;color:#7d6d66}
+.section-head span{font-size:11px;color:#b2a49e;letter-spacing:1.5px}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.product{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:11px;box-shadow:var(--shadow);min-width:0}
+.product-photo{height:170px;border-radius:14px;background:linear-gradient(140deg,#f4e7e8,#e9eee3);display:grid;place-items:center;font-size:48px;overflow:hidden}
+.product-photo img{width:100%;height:100%;object-fit:cover}
+.product h3{font-size:14px;font-weight:500;margin:11px 2px 2px;color:#78665f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product p{font-size:11px;color:#aa9d96;margin:0 2px 8px;min-height:18px}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.price{font-size:14px;font-weight:500;color:#b67f8e}
+.add{border:0;border-radius:12px;background:var(--sage);color:#64806a;padding:7px 12px;font-size:12px}
+.info-panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);margin-top:18px}
+.info-panel h3{margin:0 0 8px;font-size:17px;font-weight:500}
+.info-panel p{font-size:13px;line-height:1.8;color:#a2948d}
+.review-empty{border:1px dashed #e4d4d4;border-radius:20px;background:#fffdfa;text-align:center;padding:45px 15px;color:#aa9b96}
+.review-empty b{display:block;font-size:17px;font-weight:400;margin-bottom:7px}
+.bottom-nav{position:fixed;z-index:30;bottom:0;left:0;right:0;padding:8px max(12px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:#fffdf9ed;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center}
+.nav-inner{width:min(620px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.nav-item{border:0;border-radius:15px;padding:9px 4px;background:transparent;color:#a99b95;font-size:11px}
+.nav-item .nav-icon{display:block;font-size:18px;margin-bottom:2px}
+.nav-item.active{background:var(--sage);color:#68806b}
+.page{display:none !important}.page.active{display:block !important}
+.page-title{text-align:center;margin:20px 0 6px;font-size:24px;font-weight:500;color:#88736d}
+.page-sub{text-align:center;color:#b0a29b;font-size:12px;margin:0 0 22px}
+.field{width:100%;border:1px solid #e9e1dc;border-radius:13px;padding:12px 13px;background:#fffdfa;color:var(--ink);outline:none;margin:6px 0}
+.field:focus{border-color:#b8c9b3}
+.primary{border:0;border-radius:14px;background:var(--sage);color:#58765e;padding:11px 18px;font-size:13px}
+.soft{border:1px solid var(--line);border-radius:14px;background:#fffdfa;color:#8b7770;padding:10px 16px;font-size:13px}
+.cart-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-row .emoji{width:48px;height:48px;border-radius:13px;background:var(--pink2);display:grid;place-items:center;font-size:24px}
+.cart-row .grow{flex:1}.cart-row b{font-size:13px;font-weight:500}.cart-row small{display:block;color:#b09f98;font-size:11px}
+.cart-row button{border:0;background:none;color:#b98b96;font-size:18px}
+.total{display:flex;justify-content:space-between;padding:15px 0;font-weight:500}
+.qr-placeholder{width:190px;height:190px;margin:15px auto;border:1px dashed #d9d1ca;border-radius:16px;display:grid;place-items:center;background:#fff;font-size:12px;color:#b2a49e;text-align:center;padding:20px}
+.review-form{max-width:620px;margin:auto}
+.review-list{display:grid;gap:10px;margin-top:15px}
+.review-card{padding:15px;border:1px solid var(--line);border-radius:15px;background:#fff}
+.admin-layout{display:grid;grid-template-columns:210px 1fr;gap:15px}
+.admin-menu,.admin-content{background:#fffdfa;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}
+.admin-menu button{width:100%;display:block;text-align:left;border:0;background:transparent;color:#88766f;padding:11px;border-radius:11px;margin:3px 0}
+.admin-menu button.active{background:var(--sage2);color:var(--green)}
+.admin-content h3{margin:0 0 14px;font-weight:500}
+.admin-product{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:10px;margin:8px 0}
+.admin-product .grow{flex:1}.admin-product small{display:block;color:#ac9d96}
+.admin-product button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 9px;color:#8c7770;font-size:11px}
+.notice{font-size:11px;color:#aa9188;line-height:1.7;background:#faf3ed;border-radius:12px;padding:11px;margin-top:12px}
+.hide{display:none!important}
+body{background-image:var(--page-bg-image,none);background-size:cover;background-position:center;background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;background:var(--page-overlay,transparent);pointer-events:none;z-index:-1}
+.cover.has-image{background-size:cover;background-position:center}
+.anim-float{animation:floatText 3s ease-in-out infinite}.anim-glow{animation:glowText 2s ease-in-out infinite alternate}.anim-slide{animation:slideText 2.8s ease-in-out infinite alternate}
+@keyframes floatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes glowText{from{text-shadow:0 0 2px #d8b7c1}to{text-shadow:0 0 12px #d8b7c1,0 0 18px #c7d8bf}}
+@keyframes slideText{from{letter-spacing:0}to{letter-spacing:2px}}
+.preview-note{font-size:11px;color:#aa9d96;margin:2px 0 8px}
+@media(max-width:760px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-photo{height:155px}.admin-layout{grid-template-columns:1fr}.admin-menu{display:flex;gap:5px;overflow:auto;padding:8px}.admin-menu button{white-space:nowrap;width:auto;margin:0}.wrap{width:92%;margin-top:15px}.cover{height:155px}.stats{gap:35px}}
+@media(min-width:761px){.wrap{margin-bottom:45px}.bottom-nav{position:static;background:transparent;border:0;padding:0 0 30px}.nav-inner{background:#fffdfa;border:1px solid var(--line);border-radius:18px;padding:7px;box-shadow:var(--shadow)}}
+
+.bottom-nav{z-index:99999;pointer-events:auto}.nav-inner,.nav-item{pointer-events:auto;touch-action:manipulation}.nav-item{position:relative;z-index:100000;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.payment-card input[type=file]{margin-top:10px}.pay-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fcfefb;border:1px solid var(--line);border-radius:15px;padding:12px;margin:10px 0}
+.pay-line span{color:#9b8e88;font-size:12px;flex:1 1 100%}.pay-line b{font-size:18px;color:var(--deep);letter-spacing:.4px}
+.qrbox{border:1px dashed var(--line);background:#f5faf3;border-radius:18px;padding:14px;text-align:center;margin:16px 0}
+.qrbox img{display:block;max-width:100%;max-height:280px;object-fit:contain;margin:auto;border-radius:12px}
+.product-photo{position:relative;overflow:hidden}.product-photo img{width:100%;height:100%;object-fit:cover;display:block}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="top-actions">
+    <button class="icon-btn" aria-label="แชร์ลิงก์ร้าน" title="แชร์ลิงก์ร้าน" onclick="shareShop()">↗</button>
+    <button class="icon-btn" aria-label="ตะกร้า" onclick="go('cart')">🛍️ <span id="cartCount">0</span></button>
+    <button class="icon-btn" aria-label="แอดมิน" onclick="go('admin')">♧</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="main" class="page active">
+    <div class="profile-card">
+      <div class="cover"></div>
+      <div class="avatar">🧸</div>
+      <h1>Herbal balm</h1>
+      <p class="bio">welcome to my little shop ♡<br>ของน่ารัก ๆ และสินค้าดิจิทัล คัดสรรด้วยใจ ✿</p>
+      <div class="stats">
+        <div class="stat"><strong id="followerStat">100</strong><span>♡ followers</span></div>
+        <div class="stat"><strong id="reviewStat">0</strong><span>♡ reviews</span></div>
+      </div>
+      <a class="primary" href="https://www.facebook.com/weethida.palmy" id="fbHome" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;margin-top:14px;padding:11px 24px">♡ ติดต่อทาง Facebook</a>
+    </div>
+    <div class="section-head"><h2>♡ SHOW WORK / PRODUCTS</h2><span id="workCount">04 ITEMS</span></div>
+    <div class="product-grid" id="homeProducts"></div>
+    <div class="info-panel"><h3>♡ A LITTLE NOTE</h3><p id="shopNote">ขอบคุณที่แวะมาเยี่ยมชมร้านเล็ก ๆ ของเรานะคะ สามารถเลือกชมสินค้าและติดต่อสอบถามได้ตลอดเลยค่ะ ♡</p></div>
+  </section>
+
+  <section id="other" class="page">
+    <h1 class="page-title">♡ Show Work</h1><p class="page-sub">Our herbal balm collection</p>
+    <div class="product-grid" id="allProducts"></div>
+  </section>
+
+  <section id="payment" class="page">
+    <h1 class="page-title">♡ Payment</h1><p class="page-sub">ช่องทางชำระเงินของ Herbal balm</p>
+    <div class="info-panel payment-card" style="max-width:560px;margin:0 auto">
+      <h3>ช่องทางชำระเงิน</h3>
+      <div class="pay-line"><span>เลขบัญชีธนาคาร</span><b id="bankAccountDisplay">1653779972</b><button class="soft" onclick="copyText('1653779972')">คัดลอก</button></div>
+      <div class="pay-line"><span>เบอร์วอลเล็ต</span><b id="walletDisplay">061216751</b><button class="soft" onclick="copyText('061216751')">คัดลอก</button></div>
+      <div class="qrbox">
+        <div id="qrPlaceholder" class="qr-placeholder">♡ พื้นที่สำหรับใส่รูป QR PAYMENT ♡<br>เลือกรูป QR จากเครื่องได้ด้านล่าง</div>
+        <img id="paymentQrImage" alt="QR Payment" hidden>
+        <label class="upload" for="paymentQrUpload">＋ เพิ่มรูป QR</label>
+        <input id="paymentQrUpload" type="file" accept="image/*" class="field">
+      </div>
+      <h3 style="margin-top:22px">แจ้งชำระเงิน</h3>
+      <input class="field" id="payName" placeholder="ชื่อผู้ใช้งาน">
+      <input class="field" id="payAmount" type="number" min="1" placeholder="จำนวนเงิน (บาท)">
+      <input class="field" id="paySlip" type="file" accept="image/*">
+      <button class="primary" style="width:100%" onclick="submitPayment()">ส่งข้อมูลแจ้งชำระเงิน</button>
+      <p class="notice">หมายเหตุ: แบบตัวอย่างนี้ยังไม่ส่งสลิปไปยังแอดมินและยังไม่ตรวจสอบการโอนเงินจริง</p>
+      <p id="payStatus" class="page-sub" style="margin-top:12px"></p>
+    </div>
+  </section>
+
+  <section id="contact" class="page">
+    <h1 class="page-title">♡ Contact ♡</h1><p class="page-sub">Feel free to contact us</p>
+    <div class="contact-mini" style="max-width:560px">
+      <a href="https://www.facebook.com/weethida.palmy" id="fbContact" target="_blank" rel="noopener">♡ Facebook</a>
+    </div>
+  </section>
+
+  <section id="cart" class="page">
+    <h1 class="page-title">♡ My Cart</h1><p class="page-sub">Your lovely picks</p>
+    <div class="info-panel" style="max-width:620px;margin:auto">
+      <div id="cartItems"><div class="review-empty"><b>♡ Your cart is empty ♡</b>เลือกสินค้าที่ชอบแล้วเพิ่มลงตะกร้าได้เลย</div></div>
+      <div class="total"><span>Total</span><span id="cartTotal">฿0</span></div>
+      <button class="primary" style="width:100%" onclick="go('payment')">ดำเนินการชำระเงิน ♡</button>
+    </div>
+  </section>
+
+  <section id="reviews" class="page">
+    <h1 class="page-title">♡ Reviews</h1><p class="page-sub">Thank you for your order #♡</p>
+    <div class="review-form info-panel">
+      <textarea class="field" id="reviewInput" rows="3" placeholder="Write your review..."></textarea>
+      <button class="primary" style="width:100%" onclick="addReview()">＋ Add Review</button>
+      <div id="reviewsList" class="review-list"></div>
+    </div>
+  </section>
+
+  <section id="admin" class="page">
+    <h1 class="page-title">♡ ADMIN</h1><p class="page-sub">WEBSITE MANAGEMENT</p>
+    <div id="adminLogin" class="info-panel" style="max-width:430px;margin:20px auto;text-align:center">
+      <div style="font-size:35px">♡</div><h3>ADMIN</h3><p>เข้าสู่ระบบจัดการร้าน</p>
+      <input class="field" id="adminPassword" type="password" placeholder="รหัสผ่านแอดมิน">
+      <button class="primary" style="width:100%" onclick="adminSignIn()">LOG IN ♡</button>
+      <p class="notice">เดโมนี้ใช้รหัสผ่านฝั่งหน้าเว็บเท่านั้น ยังไม่ปลอดภัยสำหรับเว็บไซต์จริง โปรดอย่าใช้รหัสผ่านสำคัญ</p>
+    </div>
+    <div id="adminPanel" class="hide">
+      <div class="admin-layout">
+        <div class="admin-menu">
+          <button class="active" onclick="adminTab('settings',this)">♡ Website Settings</button>
+          <button onclick="adminTab('manageProducts',this)">✿ Manage Products</button>
+          <button onclick="adminTab('paymentSettings',this)">♡ Payment Settings</button>
+          <button onclick="adminTab('manageReviews',this)">☆ Reviews</button>
+          <button onclick="adminSignOut()">Log out ↗</button>
+        </div>
+        <div class="admin-content">
+          <div id="settings" class="admin-tab">
+            <h3>Website Settings ✿</h3>
+            <label>SHOP NAME</label><input class="field" id="setShopName" value="Herbal balm">
+            <label>PROFILE BIO</label><textarea class="field" id="setBio" rows="3"></textarea>
+            <label>ABOUT / A LITTLE NOTE</label><textarea class="field" id="setNote" rows="3"></textarea>
+            <label>PROFILE IMAGE / รูปโปรไฟล์ร้าน</label>
+            <input class="field" id="setAvatarFile" type="file" accept="image/*" onchange="previewImage(this,'avatarPreview')">
+            <div class="preview-note">เลือกรูปจาก iPad เพื่อเปลี่ยนรูปโปรไฟล์</div><div id="avatarPreview" class="preview-note"></div>
+            <label>COVER IMAGE / รูปปกด้านบน</label>
+            <input class="field" id="setCoverFile" type="file" accept="image/*" onchange="previewImage(this,'coverPreview')">
+            <div id="coverPreview" class="preview-note"></div>
+            <label>PAGE BACKGROUND / พื้นหลังเว็บไซต์</label>
+            <input class="field" id="setBackgroundFile" type="file" accept="image/*" onchange="previewImage(this,'backgroundPreview')">
+            <div id="backgroundPreview" class="preview-note"></div>
+            <button class="soft" type="button" onclick="clearShopImages()">ล้างรูปที่ตั้งไว้</button>
+            <label>TEXT ANIMATION / เอฟเฟกต์ตัวอักษร</label>
+            <select class="field" id="setTextAnimation"><option value="none">ไม่เคลื่อนไหว</option><option value="float">ลอยเบา ๆ</option><option value="glow">เรืองแสง</option><option value="slide">ขยับตัวอักษร</option></select>
+            <label>FACEBOOK LINK</label><input class="field" id="setFb" value="https://www.facebook.com/weethida.palmy" placeholder="https://facebook.com/...">
+            <button class="primary" onclick="saveSettings()">SAVE SETTINGS ♡</button>
+          </div>
+          <div id="manageProducts" class="admin-tab hide">
+            <h3>Manage Products ✿</h3>
+            <input class="field" id="newProductName" placeholder="ชื่อสินค้า">
+            <input class="field" id="newProductDesc" placeholder="รายละเอียดสินค้า">
+            <input class="field" id="newProductPrice" type="number" min="0" placeholder="ราคา (บาท)">
+            <input class="field" id="newProductEmoji" placeholder="อีโมจิสินค้า (ถ้าไม่ใส่รูป)" value="🎀">
+            <label>PRODUCT IMAGE / รูปสินค้า</label>
+            <input class="field" id="newProductImage" type="file" accept="image/*">
+            <div id="newProductImagePreview" class="preview-note"></div>
+            <button class="primary" onclick="addProduct()">＋ ADD PRODUCT</button>
+            <div id="adminProductList" style="margin-top:15px"></div>
+          </div>
+          <div id="paymentSettings" class="admin-tab hide">
+            <h3>Payment Settings ♡</h3>
+            <label>BANK NAME</label><input class="field" id="setBank" placeholder="ชื่อธนาคาร">
+            <label>ACCOUNT NAME</label><input class="field" id="setAccountName" placeholder="ชื่อบัญชี">
+            <label>ACCOUNT NUMBER</label><input class="field" id="setAccountNumber" placeholder="เลขบัญชี">
+            <button class="primary" onclick="savePaymentSettings()">SAVE PAYMENT</button>
+            <p class="notice">อย่าใส่ข้อมูลบัญชีของบุคคลอื่น ใช้เฉพาะบัญชีที่คุณมีสิทธิ์รับชำระเงินเท่านั้น</p>
+          </div>
+          <div id="manageReviews" class="admin-tab hide"><h3>Customer Reviews</h3><div id="adminReviews"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <div class="nav-inner">
+    <button type="button" class="nav-item active" data-page="main" onclick="go('main')"><span class="nav-icon">⌂</span>Main</button>
+    <button type="button" class="nav-item" data-page="other" onclick="go('other')"><span class="nav-icon">✧</span>Other</button>
+    <button type="button" class="nav-item" data-page="payment" onclick="go('payment')"><span class="nav-icon">▣</span>Payment</button>
+    <button type="button" class="nav-item" data-page="contact" onclick="go('contact')"><span class="nav-icon">♡</span>Contact</button>
+  </div>
+</nav>
+
+<script>
+const ADMIN_DEMO_PASSWORD = "change-this-password"; // เปลี่ยนรหัสเดโมก่อนทดลอง แต่ไม่ปลอดภัยสำหรับเว็บจริง
+const defaultProducts=[
+ {id:1,name:"Product 01",desc:"สินค้าสุดน่ารักจากร้าน ♡",price:49,emoji:"🎀"},
+ {id:2,name:"Product 02",desc:"ของดีที่อยากแนะนำ ✿",price:59,emoji:"🌷"},
+ {id:3,name:"Product 03",desc:"เลือกชิ้นโปรดของคุณ",price:69,emoji:"🧸"},
+ {id:4,name:"Product 04",desc:"ขอบคุณที่สนับสนุนร้าน",price:79,emoji:"🩰"}
+];
+let products=JSON.parse(localStorage.getItem("ss_products")||"null")||defaultProducts;
+let cart=JSON.parse(localStorage.getItem("ss_cart")||"[]");
+let reviews=JSON.parse(localStorage.getItem("ss_reviews")||"[]");
+let settings=JSON.parse(localStorage.getItem("ss_settings")||"{}");
+settings.name="Herbal balm";
+localStorage.setItem("ss_settings",JSON.stringify(settings));
+let paymentSettings=JSON.parse(localStorage.getItem("ss_payment")||"{}");
+function persist(){localStorage.setItem("ss_products",JSON.stringify(products));localStorage.setItem("ss_cart",JSON.stringify(cart));localStorage.setItem("ss_reviews",JSON.stringify(reviews));}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function shareShop(){
+ const url=window.location.href;
+ if(navigator.share){navigator.share({title:'',text:'แวะชมร้านของเรา',url}).catch(()=>{});}
+ else if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(url).then(()=>alert('คัดลอกลิงก์ร้านแล้ว ♡ ส่งให้ลูกค้าได้เลย'));}
+ else{prompt('คัดลอกลิงก์ร้านนี้',url);}
+}
+function applyContactLinks(){
+ const fb=settings.fb||'https://www.facebook.com/weethida.palmy';
+ ['fbLink','fbContact','fbHome'].forEach(id=>{const a=document.getElementById(id);if(a){a.href=fb;a.target='_blank';a.rel='noopener';}});
+}
+function compressImage(file,max=1200){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const scale=Math.min(1,max/Math.max(img.width,img.height));const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',.82));};img.onerror=reject;img.src=reader.result;};reader.onerror=reject;reader.readAsDataURL(file);});}
+async function previewImage(input,target){const file=input.files&&input.files[0];if(!file)return;try{const url=await compressImage(file,1000);const el=document.getElementById(target);el.textContent='เลือกรูปแล้ว: '+file.name;el.dataset.image=url;}catch(e){alert('เปิดรูปไม่สำเร็จ กรุณาลองเลือกรูปอื่น');}}
+function applyShopImages(){
+ const avatar=document.querySelector('.avatar');
+ if(settings.avatar){avatar.innerHTML='<img src="'+settings.avatar+'" alt="Shop profile">';}else{avatar.textContent='🧸';}
+ const cover=document.querySelector('.cover');
+ if(settings.cover){cover.style.backgroundImage='url("'+settings.cover+'")';cover.classList.add('has-image');}else{cover.style.backgroundImage='';cover.classList.remove('has-image');}
+ if(settings.background){document.documentElement.style.setProperty('--page-bg-image','url("'+settings.background+'")');document.documentElement.style.setProperty('--page-overlay','rgba(255,253,250,.68)');}else{document.documentElement.style.setProperty('--page-bg-image','none');document.documentElement.style.setProperty('--page-overlay','transparent');}
+ const mode=settings.animation||'none';
+ document.querySelectorAll('.brand,.profile-card h1,.bio,.section-head h2,.page-title,.mini-title,.info-panel h3').forEach(el=>{el.classList.remove('anim-float','anim-glow','anim-slide');if(mode!=='none')el.classList.add('anim-'+mode);});
+}
+function clearShopImages(){settings.avatar='';settings.cover='';settings.background='';localStorage.setItem('ss_settings',JSON.stringify(settings));applyShopImages();alert('ล้างรูปโปรไฟล์และพื้นหลังแล้ว ♡');}
+
+function go(id){
+ const target=document.getElementById(id);
+ if(!target || !target.classList.contains("page")){console.warn("ไม่พบหน้า:",id);return;}
+ document.querySelectorAll("main .page").forEach(p=>{p.classList.remove("active");p.hidden=true;});
+ target.hidden=false;target.classList.add("active");
+ document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ window.scrollTo({top:0,behavior:"auto"});
+ if(id==="cart")renderCart();
+ if(id==="reviews")renderReviews();
+ if(id==="admin")fillAdmin();
+}
+
+function productCard(p){return `<article class="product"><div class="product-photo">${p.image?`<img src="${p.image}" alt="${safe(p.name)}">`:safe(p.emoji||"♡")}</div><h3>${safe(p.name)}</h3><p>${safe(p.desc||"")}</p><div class="product-bottom"><span class="price">฿${Number(p.price).toLocaleString("th-TH")}</span><button class="add" onclick="addToCart(${Number(p.id)})">＋ Add</button></div></article>`;}
+function renderProducts(){
+ document.getElementById("homeProducts").innerHTML=products.slice(0,4).map(productCard).join("");
+ document.getElementById("allProducts").innerHTML=products.map(productCard).join("");
+ document.getElementById("workCount").textContent=String(products.length).padStart(2,"0")+" ITEMS";
+ document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);
+}
+function addToCart(id){let p=products.find(x=>x.id===id);if(!p)return;let item=cart.find(x=>x.id===id);item?item.qty++:cart.push({id,qty:1});persist();renderProducts();alert("เพิ่มสินค้าลงตะกร้าแล้ว ♡");}
+function renderCart(){
+ let box=document.getElementById("cartItems");
+ if(!cart.length){box.innerHTML='<div class="review-empty"><b>♡ Your cart is empty ♡</b>เลือกสินค้าที่ชอบแล้วเพิ่มลงตะกร้าได้เลย</div>';}
+ else{box.innerHTML=cart.map(c=>{let p=products.find(x=>x.id===c.id);if(!p)return "";return `<div class="cart-row"><div class="emoji">${p.image?`<img src="${p.image}" style="width:48px;height:48px;object-fit:cover;border-radius:10px">`:safe(p.emoji)}</div><div class="grow"><b>${safe(p.name)}</b><small>฿${p.price} × ${c.qty}</small></div><button onclick="removeCart(${p.id})">×</button></div>`}).join("");}
+ let total=cart.reduce((sum,c)=>{let p=products.find(x=>x.id===c.id);return sum+(p?p.price*c.qty:0)},0);
+ document.getElementById("cartTotal").textContent="฿"+total.toLocaleString("th-TH");
+ document.getElementById("cartCount").textContent=cart.reduce((a,x)=>a+x.qty,0);
+}
+function removeCart(id){cart=cart.filter(x=>x.id!==id);persist();renderCart();renderProducts();}
+function copyText(text){if(!text||text==="-"){alert("ยังไม่ได้ตั้งค่าข้อมูลบัญชี");return;}if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(text).then(()=>alert("คัดลอกแล้ว ♡"));else alert("คัดลอกข้อมูลนี้: "+text);}
+function submitPayment(){
+ const name=document.getElementById("payName").value.trim(),amount=document.getElementById("payAmount").value,slip=document.getElementById("paySlip").files[0];
+ const status=document.getElementById("payStatus");
+ if(!name||!amount||Number(amount)<=0||!slip){status.textContent="กรุณากรอกข้อมูลและแนบสลิปให้ครบ";return;}
+ status.textContent="เลือกไฟล์สลิปแล้ว แต่ยังไม่ได้ส่งข้อมูลไปยังร้าน กรุณาติดต่อร้านเพื่อยืนยัน";
+}
+function addReview(){let input=document.getElementById("reviewInput"),v=input.value.trim();if(!v)return alert("กรุณาเขียนรีวิวก่อน");reviews.unshift({text:v,date:new Date().toLocaleDateString("th-TH")});persist();input.value="";renderReviews();}
+function renderReviews(){
+ document.getElementById("reviewStat").textContent=reviews.length;
+ document.getElementById("reviewsList").innerHTML=reviews.length?reviews.map(r=>`<div class="review-card">♡ ${safe(r.text)}<small style="display:block;color:#b5a49d">${safe(r.date)}</small></div>`).join(""):'<div class="review-empty"><b>♡ No reviews yet ♡</b>Be the first one to leave a review!</div>';
+ document.getElementById("adminReviews").innerHTML=reviews.length?reviews.map(r=>`<div class="admin-product"><div class="grow">${safe(r.text)}<small>${safe(r.date)}</small></div></div>`).join(""):"ยังไม่มีรีวิว";
+}
+function adminSignIn(){if(document.getElementById("adminPassword").value!==ADMIN_DEMO_PASSWORD){alert("รหัสผ่านไม่ถูกต้อง");return;}document.getElementById("adminLogin").classList.add("hide");document.getElementById("adminPanel").classList.remove("hide");fillAdmin();}
+function adminSignOut(){document.getElementById("adminLogin").classList.remove("hide");document.getElementById("adminPanel").classList.add("hide");document.getElementById("adminPassword").value="";}
+function adminTab(id,btn){document.querySelectorAll(".admin-tab").forEach(x=>x.classList.add("hide"));document.getElementById(id).classList.remove("hide");document.querySelectorAll(".admin-menu button").forEach(x=>x.classList.remove("active"));btn.classList.add("active");}
+function fillAdmin(){
+ document.getElementById("setShopName").value=settings.name||"Herbal balm";
+ document.getElementById("setBio").value=settings.bio||"welcome to my little shop ♡\nของน่ารัก ๆ และสินค้าดิจิทัล คัดสรรด้วยใจ ✿";
+ document.getElementById("setNote").value=settings.note||"ขอบคุณที่แวะมาเยี่ยมชมร้านเล็ก ๆ ของเรานะคะ ♡";
+ document.getElementById("setFb").value=settings.fb||"https://www.facebook.com/weethida.palmy";
+ document.getElementById("setTextAnimation").value=settings.animation||"none";
+ document.getElementById("setBank").value=paymentSettings.bank||"";
+ document.getElementById("setAccountName").value=paymentSettings.name||"";
+ document.getElementById("setAccountNumber").value=paymentSettings.number||"";
+ renderAdminProducts();renderReviews();
+}
+async function saveSettings(){
+ const avatarEl=document.getElementById('avatarPreview'),coverEl=document.getElementById('coverPreview'),bgEl=document.getElementById('backgroundPreview');
+ const next={...settings,name:document.getElementById("setShopName").value,bio:document.getElementById("setBio").value,note:document.getElementById("setNote").value,fb:document.getElementById("setFb").value.trim()||'https://www.facebook.com/weethida.palmy',animation:document.getElementById('setTextAnimation').value};
+ if(avatarEl.dataset.image)next.avatar=avatarEl.dataset.image;
+ if(coverEl.dataset.image)next.cover=coverEl.dataset.image;
+ if(bgEl.dataset.image)next.background=bgEl.dataset.image;
+ settings=next;
+ try{localStorage.setItem("ss_settings",JSON.stringify(settings));}catch(e){alert('รูปมีขนาดใหญ่เกินพื้นที่จัดเก็บ กรุณาเลือกรูปที่เล็กลง');return;}
+ const brandEl=document.querySelector(".brand");if(brandEl)brandEl.innerHTML="♡ "+safe(settings.name)+" <small>HAPPY LITTLE STORE</small>";
+ document.querySelector(".profile-card h1").textContent=settings.name;
+ document.querySelector(".bio").textContent=settings.bio;
+ 
+ applyContactLinks();applyShopImages();
+ alert("บันทึกโปรไฟล์ พื้นหลัง และเอฟเฟกต์แล้ว ♡");
+}
+
+function readImageFile(file,max=1000){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const c=document.createElement("canvas");const scale=Math.min(1,max/Math.max(img.width,img.height));c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext("2d").drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL("image/jpeg",.78));};img.onerror=reject;img.src=reader.result;};reader.onerror=reject;reader.readAsDataURL(file);});}
+function showPaymentQr(data){const img=document.getElementById("paymentQrImage"),ph=document.getElementById("qrPlaceholder");if(data){img.src=data;img.hidden=false;ph.hidden=true;}else{img.hidden=true;ph.hidden=false;}}
+document.getElementById("paymentQrUpload").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const data=await readImageFile(f,1200);localStorage.setItem("ss_payment_qr",data);showPaymentQr(data);alert("เพิ่มรูป QR แล้ว ♡");}catch(err){alert("บันทึกรูป QR ไม่สำเร็จ กรุณาเลือกรูปที่เล็กลง");}});
+showPaymentQr(localStorage.getItem("ss_payment_qr")||"");
+function savePaymentSettings(){
+ paymentSettings={bank:document.getElementById("setBank").value,name:document.getElementById("setAccountName").value,number:document.getElementById("setAccountNumber").value};
+ localStorage.setItem("ss_payment",JSON.stringify(paymentSettings));applyPaymentSettings();alert("บันทึกข้อมูลในอุปกรณ์นี้แล้ว ♡");
+}
+function applyPaymentSettings(){
+ const bank=document.getElementById("bankName"),name=document.getElementById("accountName"),number=document.getElementById("accountNumber");
+ if(bank)bank.textContent=paymentSettings.bank||"-";
+ if(name)name.textContent=paymentSettings.name||"-";
+ if(number)number.textContent=paymentSettings.number||"-";
+}
+async function addProduct(){
+ let name=document.getElementById("newProductName").value.trim(),desc=document.getElementById("newProductDesc").value.trim(),price=Number(document.getElementById("newProductPrice").value),emoji=document.getElementById("newProductEmoji").value.trim()||"♡";
+ if(!name||!Number.isFinite(price)||price<0)return alert("กรุณากรอกชื่อสินค้าและราคาที่ถูกต้อง");
+ const file=document.getElementById("newProductImage").files[0];let image="";
+ try{if(file)image=await readImageFile(file,1000);}catch(e){return alert("อ่านรูปสินค้าไม่สำเร็จ");}
+ products.push({id:Date.now(),name,desc,price,emoji,image});persist();renderProducts();renderAdminProducts();
+ ["newProductName","newProductDesc","newProductPrice"].forEach(id=>document.getElementById(id).value="");
+ document.getElementById("newProductImage").value="";const prev=document.getElementById("newProductImagePreview");prev.textContent="";
+}
+function renderAdminProducts(){
+ document.getElementById("adminProductList").innerHTML=products.map(p=>`<div class="admin-product"><div class="emoji">${p.image?`<img src="${p.image}" style="width:48px;height:48px;object-fit:cover;border-radius:10px">`:safe(p.emoji)}</div><div class="grow"><b>${safe(p.name)}</b><small>฿${p.price}</small></div><button onclick="deleteProduct(${p.id})">DELETE</button></div>`).join("");
+}
+function deleteProduct(id){if(!confirm("ต้องการลบสินค้านี้หรือไม่?"))return;products=products.filter(p=>p.id!==id);cart=cart.filter(c=>c.id!==id);persist();renderProducts();renderAdminProducts();}
+renderProducts();renderReviews();applyPaymentSettings();
+if(settings.name){const brandEl=document.querySelector(".brand");if(brandEl)brandEl.innerHTML="♡ "+safe(settings.name)+" <small>HAPPY LITTLE STORE</small>";document.querySelector(".profile-card h1").textContent=settings.name;}
+if(settings.bio)document.querySelector(".bio").textContent=settings.bio;
+if(settings.note)
+applyContactLinks();applyShopImages();
+// Mobile-safe navigation: keep the bottom tabs clickable even if inline handlers are restricted.
+document.querySelector(".bottom-nav")?.addEventListener("click",event=>{
+ const btn=event.target.closest(".nav-item[data-page]");
+ if(!btn)return;
+ event.preventDefault();event.stopPropagation();
+ go(btn.dataset.page);
+},true);
+document.querySelectorAll("main .page").forEach(p=>{if(!p.classList.contains("active"))p.hidden=true;});
+</script>
+</body>
+</html>

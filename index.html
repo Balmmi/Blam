@@ -5,56 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pimmuki Shop</title>
     <link rel="stylesheet" href="style.css">
-    <!-- นำเข้า Font น่ารักๆ -->
+    <!-- ฟอนต์ภาษาไทยและอังกฤษแบบมินิมอล -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Kanit:wght@200;300;400&family=Quicksand:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container">
-        <!-- ส่วนหัว (Banner & Profile) -->
-        <div class="header">
-            <div class="banner">
-                <img src="https://placeholder.com" alt="Banner">
+    <div class="phone-container">
+        <!-- ปุ่มหัวใจตรงมุมขวาบน -->
+        <button class="heart-top-btn">♡</button>
+
+        <!-- ================= TAB 1: MAIN PAGE ================= -->
+        <div id="main-tab" class="tab-content active">
+            <!-- ส่วนหัว Banner & Profile -->
+            <div class="header-section">
+                <div class="banner-box">
+                    <!-- สามารถเปลี่ยนลิงก์รูปภาพ Banner ตรงนี้ได้ -->
+                    <img src="https://unsplash.com" alt="Banner" class="banner-img">
+                </div>
+                <div class="profile-box">
+                    <!-- สามารถเปลี่ยนลิงก์รูปโปรไฟล์ตรงนี้ได้ -->
+                    <img src="https://unsplash.com" alt="Profile" class="profile-img">
+                </div>
             </div>
-            <div class="profile-pic">
-                <img src="https://placeholder.com" alt="Profile">
+
+            <!-- ข้อมูลร้าน -->
+            <div class="shop-details">
+                <h1 class="shop-name">pimmuki shop <span>.♡𖦹.</span></h1>
+                <p class="shop-bio">✧ Welcom to Pimmuki store 🦤</p>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-num">100</span>
+                        <span class="stat-label">♡ followers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">0</span>
+                        <span class="stat-label">♡ reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- เครื่องเล่นเพลง -->
+            <div class="music-card">
+                <div class="music-info">
+                    <div class="music-icon">🎵</div>
+                    <div class="music-text">
+                        <div class="song-title">Black magic</div>
+                        <div class="artist-name">Little Mix</div>
+                    </div>
+                </div>
+                <button class="play-button">▶</button>
+            </div>
+
+            <!-- ลิงก์ช่องทางการติดต่อ -->
+            <div class="contact-box">
+                <div class="contact-divider"><span>-♡⎯⎯⎯ contact</span></div>
+                
+                <a href="https://facebook.com" target="_blank" class="link-item">
+                    <span class="link-icon">👥</span> Facebook
+                </a>
+                <a href="#" class="link-item">
+                    <span class="link-icon">🪄</span> Line
+                </a>
+                <a href="#" class="link-item">
+                    <span class="link-icon">📸</span> instagram
+                </a>
             </div>
         </div>
 
-        <!-- ข้อมูลร้าน -->
-        <div class="shop-info">
-            <h1>pimmuki shop ♡𖦹.</h1>
-            <p class="welcome">ʚ♡⃛ Welcome to Pimmuki store 𐂂</p>
-            
-            <div class="stats">
-                <div><strong>100</strong> <br> <span>followers</span></div>
-                <div><strong>0</strong> <br> <span>reviews</span></div>
+        <!-- ================= TAB 2: REVIEWS PAGE ================= -->
+        <div id="reviews-tab" class="tab-content">
+            <div class="reviews-header">
+                <h2>♡ Reviews</h2>
+                <p>Thank you for your order #._.♡</p>
+            </div>
+
+            <button class="add-review-btn">+ Add Review</button>
+
+            <div class="empty-reviews-card">
+                <p class="heart-title">♡ No reviews yet ♡</p>
+                <p class="subtitle">Be the first one to leave a review!</p>
             </div>
         </div>
 
-        <!-- ส่วนเครื่องเล่นเพลง -->
-        <div class="music-player">
-            <div class="music-icon">🎵</div>
-            <div class="music-details">
-                <span class="song-title">Black magic</span>
-                <span class="artist">Little Mix</span>
-            </div>
-            <div class="play-btn">▶</div>
-        </div>
-
-        <!-- ปุ่มติดต่อ (Contact) -->
-        <div class="contact-section">
-            <p class="contact-title">- ♡ ⎯⎯⎯ contact</p>
-            
-            <!-- ใส่ลิงก์ Facebook ของคุณแล้ว สามารถเปิดหน้าต่างใหม่เมื่อกดได้ทันที -->
-            <a href="https://www.facebook.com/weethida.palmy" target="_blank" class="btn-link">👥 Facebook</a>
-            
-            <a href="#" class="btn-link">🔗 Line</a>
-            <a href="#" class="btn-link">📸 Instagram</a>
+        <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+        <div class="bottom-nav">
+            <button id="btn-main" class="nav-btn active">♡ Main</button>
+            <button id="btn-reviews" class="nav-btn">♡ Reviews</button>
         </div>
     </div>
 
+    <!-- สคริปต์สลับหน้าจอ (Tab Switcher) -->
+    <script>
+        const btnMain = document.getElementById('btn-main');
+        const btnReviews = document.getElementById('btn-reviews');
+        const mainTab = document.getElementById('main-tab');
+        const reviewsTab = document.getElementById('reviews-tab');
+
+        btnMain.addEventListener('click', () => {
+            btnMain.classList.add('active');
+            btnReviews.classList.remove('active');
+            mainTab.classList.add('active');
+            reviewsTab.classList.remove('active');
+        });
+
+        btnReviews.addEventListener('click', () => {
+            btnReviews.classList.add('active');
+            btnMain.classList.remove('active');
+            reviewsTab.classList.add('active');
+            mainTab.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
